@@ -8,14 +8,17 @@ namespace SortingAlgorithms.ConsoleApp
     public class SortNumbersTest
     {
         private const int MaxNumber = 500000;
-        private static List<int> NumbersOfElements = new List<int> { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000 };
+
         private static List<ISorter> Sorters = new List<ISorter>
         {
-            //new BubbleSorter(),
-            //new SelectionSorter(),
-            new QuickSorter(),
+            new BubbleSorter(),
+            new SelectionSorter(),
             new MergeSorter(),
+            new QuickSorter(),
+            new RadixSorter()
         };
+
+        private static List<int> NumbersOfElements = new List<int> { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000 };
 
         public static void Run()
         {
