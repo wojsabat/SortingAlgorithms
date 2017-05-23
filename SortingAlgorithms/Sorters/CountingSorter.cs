@@ -18,17 +18,19 @@ namespace SortingAlgorithms.Sorters
             int maxVal = array[0];
             for (int i = 1; i < array.Length; i++)
             {
-                if (array[i] < minVal) minVal = array[i];
-                else if (array[i] > maxVal) maxVal = array[i];
+                if (array[i] < minVal)
+                    minVal = array[i];
+                else if (array[i] > maxVal)
+                    maxVal = array[i];
             }
 
             // init array of frequencies
             int[] counts = new int[maxVal - minVal + 1];
 
             // init the frequencies
-            for (int i = 0; i < array.Length; i++)
+            foreach (int element in array)
             {
-                counts[array[i] - minVal]++;
+                counts[element - minVal]++;
             }
 
             // recalculate
