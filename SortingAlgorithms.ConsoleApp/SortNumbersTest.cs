@@ -13,6 +13,7 @@ namespace SortingAlgorithms.ConsoleApp
         private static List<ISorter> Sorters = new List<ISorter>
         {
             new BubbleSorter(),
+            new InsertionSorter(),
             new SelectionSorter(),
             new MergeSorter(),
             new QuickSorter(),
@@ -20,7 +21,7 @@ namespace SortingAlgorithms.ConsoleApp
         };
 
         private static List<int> NumbersOfElements = new List<int>
-            {100,};//100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000, 1000000, 10000000, 100000000 };
+            {100,10000};//100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000, 1000000, 10000000, 100000000 };
 
         public static void Run()
         {
@@ -60,11 +61,11 @@ namespace SortingAlgorithms.ConsoleApp
         {
             Console.WriteLine($"{sorter.GetType().Name}\t\tElapsed: {stopwatch.Elapsed}");
 
-            foreach (var number in sorted)
+           /* foreach (var number in sorted)
             {
                 Console.Write($"{number} ");
             }
-            Console.WriteLine("");
+            Console.WriteLine("");*/
         }
     }
 }
