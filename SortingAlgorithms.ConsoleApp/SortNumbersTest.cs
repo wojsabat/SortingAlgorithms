@@ -5,9 +5,10 @@ using SortingAlgorithms.Sorters;
 
 namespace SortingAlgorithms.ConsoleApp
 {
-    public class SortNumbersTest
+    public static class SortNumbersTest
     {
-        private const int MaxNumber = 500000;
+        private const int MinNumber = 1;
+        private const int MaxNumber = 10;
 
         private static List<ISorter> Sorters = new List<ISorter>
         {
@@ -18,7 +19,8 @@ namespace SortingAlgorithms.ConsoleApp
             new RadixSorter()
         };
 
-        private static List<int> NumbersOfElements = new List<int> { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000 };
+        private static List<int> NumbersOfElements = new List<int>
+            {100,};//100, 1000, 10000, 20000, 30000, 40000, 50000, 70000, 90000, 100000, 1000000, 10000000, 100000000 };
 
         public static void Run()
         {
@@ -48,7 +50,7 @@ namespace SortingAlgorithms.ConsoleApp
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = rand.Next(MaxNumber + 1);
+                array[i] = rand.Next(MinNumber,MaxNumber+1);
             }
 
             return array;
@@ -58,11 +60,11 @@ namespace SortingAlgorithms.ConsoleApp
         {
             Console.WriteLine($"{sorter.GetType().Name}\t\tElapsed: {stopwatch.Elapsed}");
 
-//            foreach (var number in sorted)
-//            {
-//                Console.Write($"{number} ");
-//            }
-//            Console.WriteLine("");
+            foreach (var number in sorted)
+            {
+                Console.Write($"{number} ");
+            }
+            Console.WriteLine("");
         }
     }
 }

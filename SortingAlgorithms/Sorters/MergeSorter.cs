@@ -6,58 +6,48 @@ namespace SortingAlgorithms.Sorters
 {
     public class MergeSorter : ISorter
     {
-            public  IEnumerable<T> Sort<T>(IEnumerable<T> collection) where T : IComparable<T>
+        public  IEnumerable<T> Sort<T>(IEnumerable<T> collection) where T : IComparable<T>
+        {
+            var array = collection.ToArray();
+            MergeSort(array, 0, array.Length - 1);
+            return array;
+        }
+
+        private void MergeSort<T>(T[] array, int left, int right) where T : IComparable<T>
+        {
+            if (left >= right) return;
+            int mid = (left + right) / 2;
+            MergeSort(array, left, mid);
+            MergeSort(array, mid + 1, right);
+            Merge(array, left, mid+1, right);
+        }
+
+        private void Merge<T>(T[] array, int left, int mid, int right) where T : IComparable<T>
+        {
+            var temp = new T[array.Length];
+            int leftEnd = mid - 1;
+            int tempPos = left;
+            int numElements = right - left + 1;
+
+            while ((left <= leftEnd) && (mid <= right))
             {
-                var array = collection.ToArray();
-
-                MergeSort(array, 0, array.Length - 1);
-
-                return array;
+                if (array[left].IsSmallerThan(array[mid]))
+                    temp[tempPos++] = array[left++];
+                else
+                    temp[tempPos++] = array[mid++];
             }
 
-            private void MergeSort<T>(T[] array, int startIndex, int endIndex) where T : IComparable<T>
+            while (left <= leftEnd)
+                temp[tempPos++] = array[left++];
+
+            while (mid <= right)
+                temp[tempPos++] = array[mid++];
+
+            for (int i = 0; i < numElements; i++)
             {
-                if (startIndex < endIndex)
-                {
-                    MergeSort(array, startIndex, (startIndex + endIndex) / 2);
-                    MergeSort(array, (startIndex + endIndex) / 2 + 1, endIndex);
-                    Merge(array, startIndex, endIndex);
-                }
-            }
-
-            private void Merge<T>(T[] array, int startIndex, int endIndex) where T : IComparable<T>
-            {
-                T[] tempArray = new T[array.Length];
-                for (int i = startIndex; i <= endIndex; i++)
-                {
-                    tempArray[i] = array[i];
-                }
-
-                int tempStartIndex = startIndex;
-                int tempMiddleIndex = (startIndex + endIndex) / 2 + 1;
-                int r = startIndex;
-                while (tempStartIndex <= (startIndex + endIndex) / 2 && tempMiddleIndex <= endIndex)
-                {
-                    if (tempArray[tempStartIndex].IsSmallerThan(tempArray[tempMiddleIndex]))
-                    {
-                        array[r] = tempArray[tempStartIndex];
-                        r++;
-                        tempStartIndex++;
-                    }
-                    else
-                    {
-                        array[r] = tempArray[tempMiddleIndex];
-                        r++;
-                        tempMiddleIndex++;
-                    }
-                }
-
-                while (tempStartIndex <= (startIndex + endIndex) / 2)
-                {
-                    array[r] = tempArray[tempStartIndex];
-                    r++;
-                    tempStartIndex++;
-                }
+                array[right] = temp[right];
+                right--;
             }
         }
     }
+}

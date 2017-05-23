@@ -9,22 +9,26 @@ namespace SortingAlgorithms.Sorters
         public IEnumerable<T> Sort<T>(IEnumerable<T> collection) where T : IComparable<T>
         {
             var array = collection.ToArray();
-            T temp;
 
             for (int i = 1; i < array.Length; i++)
             {
                 for (int j = 1; j < array.Length; j++)
                 {
-                    if (array[j - 1].CompareTo(array[j]) > 0)
+                    if (array[j - 1].IsBiggerThan(array[j]))
                     {
-                        temp = array[j];
-                        array[j] = array[j - 1];
-                        array[j - 1] = temp;
+                        Swap(array, j, j-1);
                     }
                 }
             }
 
             return array;
+        }
+
+        private void Swap<T>(T[] array, int first, int second)
+        {
+            var temp = array[first];
+            array[first] = array[second];
+            array[second] = temp;
         }
     }
 }
