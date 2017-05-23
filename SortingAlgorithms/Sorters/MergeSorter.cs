@@ -24,29 +24,27 @@ namespace SortingAlgorithms.Sorters
 
         private void Merge<T>(T[] array, int left, int mid, int right) where T : IComparable<T>
         {
-            var temp = new T[array.Length];
-            int leftEnd = mid - 1;
-            int tempPos = left;
-            int numElements = right - left + 1;
-
+            var tempArray = new T[right - left + 1];
+            var leftEnd = mid - 1;
+            var pointer = 0;
+            
             while ((left <= leftEnd) && (mid <= right))
             {
                 if (array[left].IsSmallerThan(array[mid]))
-                    temp[tempPos++] = array[left++];
+                    tempArray[pointer++] = array[left++];
                 else
-                    temp[tempPos++] = array[mid++];
+                    tempArray[pointer++] = array[mid++];
             }
 
             while (left <= leftEnd)
-                temp[tempPos++] = array[left++];
+                tempArray[pointer++] = array[left++];
 
             while (mid <= right)
-                temp[tempPos++] = array[mid++];
+                tempArray[pointer++] = array[mid++];
 
-            for (int i = 0; i < numElements; i++)
+            for (int i = tempArray.Length-1; i >=0; i--)
             {
-                array[right] = temp[right];
-                right--;
+                array[right--] = tempArray[i];
             }
         }
     }
